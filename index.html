@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>merri</title>
+</head>
+<body>
+	<div>
+		<input type="url" id="urlinput">
+        <button onclick="shorturl()">Convert URL</button>
+    </div>
+
+	<script type="text/javascript">
+		let url = document.getElementById("urlinput").value,
+			set = localStorage.setItem('theURL', url),
+			getIt = localStorage.getItem('theURL')
+
+		function getrandom(){
+		    var random_string = Math.random().toString(32).substring(2, 5) + Math.random().toString(32).substring(2, 5)
+		    return random_string()
+		}
+
+		function geturl(){
+		    var protocol_ok = url.startsWith("http://") || url.startsWith("https://") || url.startsWith("ftp://");
+		    if(!protocol_ok){
+		        newurl = "http://"+url;
+		        return newurl;
+		        }else{
+		            return url;
+		        }
+		}
+
+		function shorturl(){
+		    var longurl = geturl();
+		    send_request(longurl);
+		}
+
+		
+	</script>
+</body>
+</html>
