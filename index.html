@@ -5,38 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<title>merri</title>
+
+	<style type="text/css">
+		@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+		* {font-family: 'Montserrat', sans-serif;}
+		.wrapper {margin: auto; width: 40rem; padding: 5rem; background: azure;}
+	</style>
 </head>
 <body>
-	<div>
-		<input type="url" id="urlinput">
-        <button onclick="shorturl()">Convert URL</button>
-    </div>
+	<div class="wrapper">
+		<div>
+			<p>Please enter an ideal text to point to your url and your current whole url <br>(ex:  www.url.com/pathname)</p>
+			<label>simple url</label> <input type="url" id="idealUrl"><br>
+			<label>current url</label> <input type="url" id="urlinput"><br>
+			<input type = "submit" name = "button" onclick = "shorturl()"> 
+	    </div>
 
+	    <div>
+	    	<h2>Your short url is </h2> 
+	    	<h1 id="shortid"></h1>
+	    </div>
+	</div>
 	<script type="text/javascript">
-		let url = document.getElementById("urlinput").value,
-			set = localStorage.setItem('theURL', url),
-			getIt = localStorage.getItem('theURL')
-
-		function getrandom(){
-		    var random_string = Math.random().toString(32).substring(2, 5) + Math.random().toString(32).substring(2, 5)
-		    return random_string()
-		}
-
-		function geturl(){
-		    var protocol_ok = url.startsWith("http://") || url.startsWith("https://") || url.startsWith("ftp://");
-		    if(!protocol_ok){
-		        newurl = "http://"+url;
-		        return newurl;
-		        }else{
-		            return url;
-		        }
-		}
+		let inUrl = document.getElementById("urlinput").value,
+			// set = localStorage.setItem('theURL', `${inUrl}`),
+			ideal = document.getElementById("idealUrl").value,
+			shortMap = new Map()  //short links => url && url => short links
+			shortMap.set(`${ideal}`,`${inUrl}`)
+			console.log(shortMap)
 
 		function shorturl(){
-		    var longurl = geturl();
-		    send_request(longurl);
+		    // send_request(url);
+		    document.getElementById("shortid").innerHTML = ideal
+		    // location.replace("https://www.w3schools.com")
 		}
-
+		async function send_request(url) {
+			this.url = inUrl;
+			let //parsedUrl = new URL(document.location.href), //`${inUrl}`),
+		    	response = await fetch(`https://${ideal}`),
+		    	data = response.location.replace(`${inUrl}`)
+		    return data
+		    console.log(data)
+		}
 		
 	</script>
 </body>
