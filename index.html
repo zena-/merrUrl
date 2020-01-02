@@ -10,42 +10,39 @@
 		@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 		* {font-family: 'Montserrat', sans-serif;}
 		.wrapper {margin: auto; width: 40rem; padding: 5rem; background: azure;}
+		input { width: 30rem; border-radius: 19px; height: 17px; margin: 1rem; }
+		button {width: 8rem;height: 2rem; background: cadetblue; border-radius: 50px;}
+		.dtwo {margin: 3rem 10rem;}
+		.dtwo:hover {transform: scale(1); transition: transform .2s;}
 	</style>
 </head>
 <body>
 	<div class="wrapper">
 		<div>
-			<p>Please enter an ideal text to point to your url and your current whole url <br>(ex:  www.url.com/pathname)</p>
+			<p>Please enter a simple text to point to your url and your current whole url </p>
 			<label>simple url</label> <input type="url" id="idealUrl"><br>
-			<label>current url</label> <input type="url" id="urlinput"><br>
-			<input type = "submit" name = "button" onclick = "shorturl()"> 
+			<label>your whole url</label> <input type="url" id="urlinput"><br>
+			<button type = "submit" name = "button" onclick = "shorturl()">submit</button>
 	    </div>
 
-	    <div>
-	    	<h2>Your short url is </h2> 
-	    	<h1 id="shortid"></h1>
+	    <div class="dtwo">
+	    	<h2>short url is :</h2> 
+	    	<a href="#" target="_blank" id="mylink">https://zena-.github.io/merrUrl/<span id="shortid"></span></a>
 	    </div>
 	</div>
 	<script type="text/javascript">
-		let inUrl = document.getElementById("urlinput").value,
-			// set = localStorage.setItem('theURL', `${inUrl}`),
+		function shorturl()
+		{
+			let inUrl = document.getElementById("urlinput").value,
 			ideal = document.getElementById("idealUrl").value,
-			shortMap = new Map()  //short links => url && url => short links
-			shortMap.set(`${ideal}`,`${inUrl}`)
-			console.log(shortMap)
+			wind = window.location.href
+			path = new URL(`../${ideal}`, wind)
+			document.getElementById("shortid").innerHTML = ideal
 
-		function shorturl(){
-		    // send_request(url);
-		    document.getElementById("shortid").innerHTML = ideal
-		    // location.replace("https://www.w3schools.com")
-		}
-		async function send_request(url) {
-			this.url = inUrl;
-			let //parsedUrl = new URL(document.location.href), //`${inUrl}`),
-		    	response = await fetch(`https://${ideal}`),
-		    	data = response.location.replace(`${inUrl}`)
-		    return data
-		    console.log(data)
+			const shortMap = new Map()  
+			shortMap.set(ideal, inUrl)
+			var keyV = shortMap.get(ideal)
+		    document.getElementsByTagName("a")[0].setAttribute("href", keyV)
 		}
 		
 	</script>
