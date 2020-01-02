@@ -13,7 +13,6 @@
 		input { width: 30rem; border-radius: 19px; height: 17px; margin: 1rem; }
 		button {width: 8rem;height: 2rem; background: cadetblue; border-radius: 50px;}
 		.dtwo {margin: 3rem 10rem;}
-		.dtwo:hover {transform: scale(1); transition: transform .2s;}
 	</style>
 </head>
 <body>
@@ -21,13 +20,14 @@
 		<div>
 			<p>Please enter a simple text to point to your url and your current whole url </p>
 			<label>simple url</label> <input type="url" id="idealUrl"><br>
-			<label>your whole url</label> <input type="url" id="urlinput"><br>
+			<label>fill url</label> <input type="url" id="urlinput" placeholder="https://url.com/path" ><br>
 			<button type = "submit" name = "button" onclick = "shorturl()">submit</button>
 	    </div>
 
 	    <div class="dtwo">
 	    	<h2>short url is :</h2> 
 	    	<a href="#" target="_blank" id="mylink">https://zena-.github.io/merrUrl/<span id="shortid"></span></a>
+	    	<p id="target"></p>
 	    </div>
 	</div>
 	<script type="text/javascript">
@@ -42,7 +42,12 @@
 			const shortMap = new Map()  
 			shortMap.set(ideal, inUrl)
 			var keyV = shortMap.get(ideal)
+			console.log(shortMap)
+			document.getElementsByTagName("a")[0].innerHTML = ideal
 		    document.getElementsByTagName("a")[0].setAttribute("href", keyV)
+
+		    for (const [k, v] of shortMap) 
+		    	{ target.innerHTML = `${k}  =  ${v}` }
 		}
 		
 	</script>
